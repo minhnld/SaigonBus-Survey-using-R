@@ -1,0 +1,7 @@
+\contentsline {section}{\numberline {1}Gi\IeC {\'\ohorn }i thi\IeC {\d \ecircumflex }u b\IeC {\`a}i to\IeC {\'a}n}{3}{section.1}% 
+\contentsline {section}{\numberline {2}C\IeC {\ohorn } s\IeC {\h \ohorn } l\IeC {\'y} thuy\IeC {\'\ecircumflex }t}{3}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}Th\IeC {\'\ocircumflex }ng k\IeC {\^e} m\IeC {\^o} t\IeC {\h a}}{3}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}C\IeC {\^o}ng c\IeC {\d u} R}{4}{subsection.2.2}% 
+\contentsline {section}{\numberline {3}K\IeC {\'\ecircumflex }t qu\IeC {\h a} ph\IeC {\^a}n t\IeC {\'\i }ch d\IeC {\~\uhorn } li\IeC {\d \ecircumflex }u}{4}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}T\IeC {\d \acircumflex }p d\IeC {\~\uhorn } li\IeC {\d \ecircumflex }u}{4}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}K\IeC {\'\ecircumflex }t qu\IeC {\h a} ph\IeC {\^a}n t\IeC {\'\i }ch}{7}{subsection.3.2}% 

@@ -1,0 +1,434 @@
+\documentclass[a4paper]{article}
+\usepackage{vntex}
+%\usepackage[english,vietnam]{babel}
+%\usepackage[utf8]{inputenc}
+
+%\usepackage[utf8]{inputenc}
+%\usepackage[francais]{babel}
+\usepackage{a4wide,amssymb,epsfig,latexsym,multicol,array,hhline,fancyhdr}
+
+\usepackage{amsmath}
+\usepackage{lastpage}
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{graphicx}							% Standard graphics package
+\usepackage{array}
+\usepackage{tabularx, caption}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{graphics}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{epsfig}
+\usepackage{tikz}
+\usetikzlibrary{arrows,snakes,backgrounds}
+\usepackage{hyperref}
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
+%\usepackage{pstcol} 								% PSTricks with the standard color package
+
+\newtheorem{theorem}{{\bf Định lý}}
+\newtheorem{property}{{\bf Tính chất}}
+\newtheorem{proposition}{{\bf Mệnh đề}}
+\newtheorem{corollary}[proposition]{{\bf Hệ quả}}
+\newtheorem{lemma}[proposition]{{\bf Bổ đề}}
+
+
+%\usepackage{fancyhdr}
+\setlength{\headheight}{40pt}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyhead[L]{
+ \begin{tabular}{rl}
+    \begin{picture}(25,15)(0,0)
+    \put(0,-8){\includegraphics[width=8mm, height=8mm]{hcmut.png}}
+    %\put(0,-8){\epsfig{width=10mm,figure=hcmut.eps}}
+   \end{picture}&
+	%\includegraphics[width=8mm, height=8mm]{hcmut.png} & %
+	\begin{tabular}{l}
+		\textbf{\bf \ttfamily Trường Đại Học Bách Khoa Tp.Hồ Chí Minh}\\
+		\textbf{\bf \ttfamily Khoa Khoa Học và Kỹ Thuật Máy Tính}
+	\end{tabular} 	
+ \end{tabular}
+}
+\fancyhead[R]{
+	\begin{tabular}{l}
+		\tiny \bf \\
+		\tiny \bf 
+	\end{tabular}  }
+\fancyfoot{} % clear all footer fields
+\fancyfoot[L]{\scriptsize \ttfamily Bài tập lớn môn Toán Rời Rạc 1 - Niên khóa 2012-2013}
+\fancyfoot[R]{\scriptsize \ttfamily Trang {\thepage}/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+
+%%%
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+\makeatletter
+\newcounter {subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
+\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\newcommand*\l@subsubsubsection{\@dottedtocline{3}{10.0em}{4.1em}}
+\newcommand*{\subsubsubsectionmark}[1]{}
+\makeatother
+
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH \\
+TRƯỜNG ĐẠI HỌC BÁCH KHOA \\
+KHOA KHOA HỌC - KỸ THUẬT MÁY TÍNH 
+\end{center}
+
+\vspace{1cm}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=3cm]{hcmut.png}
+\end{center}
+\end{figure}
+
+\vspace{1cm}
+
+
+\begin{center}
+\begin{tabular}{c}
+\multicolumn{1}{l}{\textbf{{\Large TOÁN RỜI RẠC 1}}}\\
+~~\\
+\hline
+\\
+\multicolumn{1}{l}{\textbf{{\Large Bài tập lớn đề tài MÃ ĐỀ}}}\\
+\\
+\textbf{{\Huge Thống kê \& phân tích dữ liệu bằng R}}\\
+\\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{3cm}
+
+\begin{table}[h]
+\begin{tabular}{rrl}
+\hspace{5 cm} & GVHD: & NNN\\
+& Mã nhóm: & N \\
+& Nhóm SV: & Nguyen Van A- 22102134 \\
+& & Tran Van B - 88471334 \\
+\end{tabular}
+\end{table}
+
+\begin{center}
+{\footnotesize TP. HỒ CHÍ MINH, THÁNG 1/2015}
+\end{center}
+\end{titlepage}
+
+
+%\thispagestyle{empty}
+
+\newpage
+\tableofcontents
+% \newpage \listoffigures
+% \newpage \listoftables
+\newpage
+\section*{Nhật ký làm việc nhóm}
+Nhật ký làm việc nhóm
+\newpage
+
+Bài báo cáo này trình bày về thống kê và phân tích dữ liệu chiều cao của ca sĩ ở New York Choral Society năm 1979, được chia thành 4 cột lần lượt theo giọng nữ cao, nữ trầm, nam cao và nam trầm.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Giới thiệu bài toán}
+Ta cần phải phân tích dữ liệu để cung cấp các thông tin xác thực, trực quan, mô tả cụ thể, dễ hiểu vấn đề đang phân tích để phục vụ nghiên cứu khoa học.  Đặc biệt trong các vấn đề kinh tế-xã hội và khi nghiên cứu số lớn chúng ta cần phải quan tâm đến các công cụ kỹ thuật về phân tích số liệu và biểu đồ.
+
+Phân tích số liệu và biểu đồ thường được tiến hành bằng các phần mềm thông dụng như SAS, SPSS, Stata, Statistica, và S-Plus.  Đây là những phần mềm được các công ti phần mềm phát triển và giới thiệu trên thị trường khoảng ba thập niên qua, và đã được các trường đại học, các trung tâm nghiên cứu và công ti kĩ nghệ trên toàn thếgiới sửdụng cho giảng dạy và nghiên cứu. Nhưng vì chi phí để sửdụng các phần mềm này tuơng đối đắt tiền (có khi lên đến hàng trăm ngàn đô-la mỗi năm). Do đó, các nhà nghiên cứu thống kê trên thế giới đã hợp tác với nhau để phát triển một phần mềm mới, với chủ trương mã nguồn mở, sao cho tất cảcác thành viên trong ngành thống kê học và toán học trên thếgiới có thể sử dụng một cách thống nhất và hoàn toàn miễn phí. 
+
+Năm 1996, trong một bài báo quan trọng vềtính toán thống kê, hai nhà thống kê học Ross Ihaka và Robert Gentleman [lúc đó] thuộc Trường đại học Auckland, New Zealand phát hoạmột ngôn ngữmới cho phân tích thống kê mà họ đặt tên là R. Nói một cách ngắn gọn, R là một phần mềm sử dụng cho phân tích thống kê và vẽ biểu đồ. Thật ra, về bản chất, R là ngôn ngữ máy tính đa năng, có thể sửdụng cho nhiều mục tiêu khác nhau, từ tính toán đơn giản, toán học giải trí (recreational mathematics), tính toán ma trận (matrix), đến các phân tích thống kê phức tạp. Vì là một ngôn ngữ, cho nên người ta có thể sử dụng R để phát triển thành các phần mềm chuyên môn cho một vấn đề tính toán cá biệt. 
+
+Sơ lược về đề tài : Phân tích đề tài  chiều cao của các ca sĩ trong các hội hợp xướng New York vào năm 1979. Với giọng hát từ cao nhất đến thấp nhất với thứ tự Soprano, Alto, Tenor, Bass. Trong đó hai cột đầu tiên là giọng nữ còn hai cột sau là giọng nam. Các dữ liệu ban đầu bao gồm hai bộ phận cho từng phần. Bộ dữ liệu này chỉ báo cáo 1 Soprano, 1 Alto, 1 Tenor, 1 Bass. Với số trường hợp ban đầu là 39.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cơ sở lý thuyết}
+	\subsection{Thống kê mô tả}
+	Nói đến thống kê mô tả là nói đến việc mô tả dữ liệu bằng các phép tính và chỉ số thống kê thông thường mà chúng ta đã làm quen qua từ thuở trung học như số trung bình (mean), số trung vị (median), số lớn nhất (max), số nhỏ nhất (min), phương sai (variance), độ lệch chuẩn (standard deviation)…
+	
+	Trong đó ta làm quen các định nghĩa chưa biết :
+	
+		- Phương sai của một biến ngẫu nhiên là một độ đo sự phân tán thống kê của biến đó, nó hàm ý các giá trị của biến đó thường ở cách giá trị kỳ vọng bao xa. 
+		
+		- Độ lệch chuẩn, hay độ lệch tiêu chuẩn, là một đại lượng thống kê mô tả dùng để đo mức độ phân tán của một tập dữ liệu đã được lập thành bảng tần số. Có thể tính ra độ lệch chuẩn bằng cách lấy căn bậc hai của phương sai.
+		
+		- số trung vị (tiếng Anh: median) là một số tách giữa nửa lớn hơn và nửa bé hơn của một mẫu, một quần thể, hay một phân bố xác suất. Nó là giá trị giữa trong một phân bố, mà số số nằm trên hay dưới con số đó là bằng nhau. Điều đó có nghĩa rằng 1/2 quần thể sẽ có các giá trị nhỏ hơn hay bằng số trung vị, và một nửa quần thể sẽ có giá trị bằng hoặc lớn hơn số trung vị.
+	
+	\subsection{Công cụ R}
+	Như đã nói ở trên, R là một công cụ miễn phí dùng để phân tích dữ liệu. Chúng ta có thể sử dụng R để thực hiện các phép toán từ đơn giản đến phức tạp. Những bài toán tiêu biểu: các phép kiểm định thống kê, tính toán trên ma trận, hồi quy tuyến tính, gom cụm dữ liệu, bài toán phân lớp… Và vì R là một ngôn ngữ nên chúng ta có thể viết ứng dụng trên R để giải quyết các vấn đề cụ thể.
+	
+		- Các hàm của R để tính toán thống kê mô tả:
+\begin{verbatim}
+> option (width=100)
+# chuyển directory
+> setwd ("C:/works/stats")
+
+# đọc dữ liệu vào R
+> igfdata <- read.table ("igf.txt", hearder = TRUE, na.string = ".")
+> attach (igfdata)
+
+# xem xét các cột số trong dữ liệu
+> names (igfdata)
+hoặc
+> igfdata
+
+# tính trung bình
+> mean (age)
+
+# phương sai và độ lệch chuẩn
+> var (age)
+> sd (age)
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Kết quả phân tích dữ liệu}
+	\subsection{Tập dữ liệu} 
+- Tập dữ liệu được chia thành 4 cột lần lượt theo giọng nữ cao, nữ trầm, nam cao và nam trầm.\\
+- Đọc dữ liệu bằng R : nhập dữ liệu vào excel và lưu dưới dạng csv (coma delimited).\\
+- Dùng R để nhập dữ liệu dạng csv: giả sử lưu dữ liệu có tên excel.csv trong directory  “D:/trr”\\
+- Vào R và gõ lệnh :
+\begin{verbatim}
+>setwd(“D:/trr”)	# dẫn R đến thư mục chứa file excel.csv.
+>a<-read.csv(“excel.csv”, header = TRUE) # đọc số liệu bằng R và lưu vào object  có tên là a.
+>save (a, file=”a.rda” ) # lưu a dưới dạng R để xử lý.
+\end{verbatim}
+- Sau đó ta kiểm tra lại:
+\begin{verbatim}
+> setwd("D:/trr")
+> a<- read.csv("excel.csv", header = TRUE)
+> a
+\end{verbatim}
+- Kết quả: \\
+\hspace{1.5cm}Soprano\hspace{1.5cm}Alto\hspace{1.5cm}Tenor\hspace{1.5cm}Bass
+
+1\hspace{1.5cm}64\hspace{1.5cm}65\hspace{1.5cm}69\hspace{1.5cm}72
+
+2\hspace{1.5cm}62\hspace{1.5cm}62\hspace{1.5cm}72\hspace{1.5cm}70
+
+3\hspace{1.5cm}66\hspace{1.5cm}68\hspace{1.5cm}71\hspace{1.5cm}72
+
+4\hspace{1.5cm}65\hspace{1.5cm}67\hspace{1.5cm}66\hspace{1.5cm}69
+
+5\hspace{1.5cm}60\hspace{1.5cm}67\hspace{1.5cm}76\hspace{1.5cm}73
+
+6\hspace{1.5cm}61\hspace{1.5cm}63\hspace{1.5cm}74\hspace{1.5cm}71
+
+7\hspace{1.5cm}65\hspace{1.5cm}67\hspace{1.5cm}71\hspace{1.5cm}72
+
+8\hspace{1.5cm}66\hspace{1.5cm}66\hspace{1.5cm}66\hspace{1.5cm}68
+
+9\hspace{1.5cm}65\hspace{1.5cm}63\hspace{1.5cm}68\hspace{1.5cm}68
+
+10\hspace{1.5cm}63\hspace{1.5cm}72\hspace{1.5cm}67\hspace{1.5cm}71
+
+11\hspace{1.5cm}67\hspace{1.5cm}62\hspace{1.5cm}70\hspace{1.5cm}66
+
+12\hspace{1.5cm}65\hspace{1.5cm}61\hspace{1.5cm}65\hspace{1.5cm}68
+
+13\hspace{1.5cm}62\hspace{1.5cm}66\hspace{1.5cm}72\hspace{1.5cm}71
+
+14\hspace{1.5cm}65\hspace{1.5cm}64\hspace{1.5cm}70\hspace{1.5cm}73
+
+15\hspace{1.5cm}68\hspace{1.5cm}60\hspace{1.5cm}68\hspace{1.5cm}73
+
+16\hspace{1.5cm}65\hspace{1.5cm}61\hspace{1.5cm}73\hspace{1.5cm}70
+
+17\hspace{1.5cm}63\hspace{1.5cm}66\hspace{1.5cm}66\hspace{1.5cm}68
+
+18\hspace{1.5cm}65\hspace{1.5cm}66\hspace{1.5cm}68\hspace{1.5cm}70
+
+19\hspace{1.5cm}62\hspace{1.5cm}66\hspace{1.5cm}67\hspace{1.5cm}75
+
+20\hspace{1.5cm}65\hspace{1.5cm}62\hspace{1.5cm}64\hspace{1.5cm}68
+
+21\hspace{1.5cm}66\hspace{1.5cm}70\hspace{1.5cm}NA\hspace{1.5cm}71
+
+22\hspace{1.5cm}62\hspace{1.5cm}65\hspace{1.5cm}NA\hspace{1.5cm}70
+
+23\hspace{1.5cm}65\hspace{1.5cm}64\hspace{1.5cm}NA\hspace{1.5cm}74
+
+24\hspace{1.5cm}63\hspace{1.5cm}63\hspace{1.5cm}NA\hspace{1.5cm}70
+
+25\hspace{1.5cm}65\hspace{1.5cm}65\hspace{1.5cm}NA\hspace{1.5cm}75
+
+26\hspace{1.5cm}66\hspace{1.5cm}69\hspace{1.5cm}NA\hspace{1.5cm}75
+
+27\hspace{1.5cm}65\hspace{1.5cm}61\hspace{1.5cm}NA\hspace{1.5cm}69
+
+28\hspace{1.5cm}62\hspace{1.5cm}66\hspace{1.5cm}NA\hspace{1.5cm}72
+
+29\hspace{1.5cm}65\hspace{1.5cm}65\hspace{1.5cm}NA\hspace{1.5cm}71
+
+30\hspace{1.5cm}66\hspace{1.5cm}61\hspace{1.5cm}NA\hspace{1.5cm}70
+
+31\hspace{1.5cm}65\hspace{1.5cm}63\hspace{1.5cm}NA\hspace{1.5cm}71
+
+32\hspace{1.5cm}61\hspace{1.5cm}64\hspace{1.5cm}NA\hspace{1.5cm}68
+
+33\hspace{1.5cm}65\hspace{1.5cm}67\hspace{1.5cm}NA\hspace{1.5cm}70
+
+34\hspace{1.5cm}66\hspace{1.5cm}66\hspace{1.5cm}NA\hspace{1.5cm}75
+
+35\hspace{1.5cm}65\hspace{1.5cm}68\hspace{1.5cm}NA\hspace{1.5cm}72
+
+36\hspace{1.5cm}62\hspace{1.5cm}NA\hspace{1.5cm}NA\hspace{1.5cm}66
+
+37\hspace{1.5cm}NA\hspace{1.5cm}NA\hspace{1.5cm}NA\hspace{1.5cm}72
+
+38\hspace{1.5cm}NA\hspace{1.5cm}NA\hspace{1.5cm}NA\hspace{1.5cm}70
+
+39\hspace{1.5cm}NA\hspace{1.5cm}NA\hspace{1.5cm}NA\hspace{1.5cm}69
+
+\begin{verbatim}
+>a <- na.omit(a)  # loại bỏ những dòng có giá trị NA.
+> save(a, file=”a.rda”)   # lưu a dưới dạng R
+> attach(a) # dẫn cho R biết chúng ta muốn xử lí a.
+>a
+
+\end{verbatim}
+\hspace{1.5cm}Soprano\hspace{1.5cm}Alto\hspace{1.5cm}Tenor\hspace{1.5cm}Bass
+
+1\hspace{1.5cm}64\hspace{1.5cm}65\hspace{1.5cm}69\hspace{1.5cm}72
+
+2\hspace{1.5cm}62\hspace{1.5cm}62\hspace{1.5cm}72\hspace{1.5cm}70
+
+3\hspace{1.5cm}66\hspace{1.5cm}68\hspace{1.5cm}71\hspace{1.5cm}72
+
+4\hspace{1.5cm}65\hspace{1.5cm}67\hspace{1.5cm}66\hspace{1.5cm}69
+
+5\hspace{1.5cm}60\hspace{1.5cm}67\hspace{1.5cm}76\hspace{1.5cm}73
+
+6\hspace{1.5cm}61\hspace{1.5cm}63\hspace{1.5cm}74\hspace{1.5cm}71
+
+7\hspace{1.5cm}65\hspace{1.5cm}67\hspace{1.5cm}71\hspace{1.5cm}72
+
+8\hspace{1.5cm}66\hspace{1.5cm}66\hspace{1.5cm}66\hspace{1.5cm}68
+
+9\hspace{1.5cm}65\hspace{1.5cm}63\hspace{1.5cm}68\hspace{1.5cm}68
+
+10\hspace{1.5cm}63\hspace{1.5cm}72\hspace{1.5cm}67\hspace{1.5cm}71
+
+11\hspace{1.5cm}67\hspace{1.5cm}62\hspace{1.5cm}70\hspace{1.5cm}66
+
+12\hspace{1.5cm}65\hspace{1.5cm}61\hspace{1.5cm}65\hspace{1.5cm}68
+
+13\hspace{1.5cm}62\hspace{1.5cm}66\hspace{1.5cm}72\hspace{1.5cm}71
+
+14\hspace{1.5cm}65\hspace{1.5cm}64\hspace{1.5cm}70\hspace{1.5cm}73
+
+15\hspace{1.5cm}68\hspace{1.5cm}60\hspace{1.5cm}68\hspace{1.5cm}73
+
+16\hspace{1.5cm}65\hspace{1.5cm}61\hspace{1.5cm}73\hspace{1.5cm}70
+
+17\hspace{1.5cm}63\hspace{1.5cm}66\hspace{1.5cm}66\hspace{1.5cm}68
+
+18\hspace{1.5cm}65\hspace{1.5cm}66\hspace{1.5cm}68\hspace{1.5cm}70
+
+19\hspace{1.5cm}62\hspace{1.5cm}66\hspace{1.5cm}67\hspace{1.5cm}75
+
+20\hspace{1.5cm}65\hspace{1.5cm}62\hspace{1.5cm}64\hspace{1.5cm}68
+
+	\subsection{Kết quả phân tích} 
+		- Thuộc tính thứ 1 - Soprano: \\
+\begin{verbatim}
+> min(Soprano)
+[1] 60
+> max(Soprano)
+[1] 68
+> mean(Soprano)
+[1] 64.2
+> median(Soprano)
+[1] 65
+> var(Soprano)
+[1] 4.168421
+> sd(Soprano)
+[1] 2.041671
+\end{verbatim}
+	Nhận xét: Qua số liệu được phân tích ở trên ta thấy: chiều cao thấp nhất của đối tượng alto là 60 inch, chiều cao cao nhất là 68 inch,phương sai của Soprano thấp (4.7) cho thấy khoảng cách để đạt đến chiều cao kì vọng gần,ở đây số trung vị cho thấy chiếu cao của đối tượng này nằm chủ yếu  ở 65 inch,độ lệch chuẩn cho thấy các đối tượng có chênh lệch chiều cao so với chiều cao trung bình khoảng  hơn 2 inch.\\
+		- Thuộc tính thứ 2 - Alto:
+\begin{verbatim}
+> min(Alto)
+[1] 60
+> max(Alto)
+[1] 72
+> mean(Alto)
+[1] 64.7
+> median(Alto)
+[1] 65.5
+> var(Alto)
+[1] 8.747368
+> sd(Alto)
+[1] 2.957595
+\end{verbatim}
+	Nhận xét: Qua số liệu được phân tích ở trên ta thấy: chiều cao thấp nhất của đối tượng alto là 60 inch, chiều cao cao nhất là 72 inch,phương sai của Alto khá lớn (8.7) cho thấy khoảng cách để đạt đến chiều cao kì vọng khá xa,ở đây số trung vị cho thấy chiếu cao của đối tượng này nằm chủ yếu  ở 65.5 inch,độ lệch chuẩn cho thấy các đối tượng có chênh lệch chiều cao so với chiều cao trung bình khoảng 3 inch. \\
+		- Thuộc tính thứ 3 - Tenor: 
+\begin{verbatim}
+> min(Tenor)
+[1] 64
+> max(Tenor)
+[1] 76
+> mean(Tenor)
+[1] 69.15
+> median(Tenor)
+[1] 68.5
+> var(Tenor)
+[1] 10.34474
+> sd(Tenor)
+[1] 3.216323
+\end{verbatim}
+	Nhận xét: Qua số liệu được phân tích ở trên ta thấy: chiều cao thấp nhất của đối tượng alto là 64 inch, chiều cao cao nhất là 76 inch,phương sai của Tenor lớn (10.3) cho thấy khoảng cách để đạt đến chiều cao kì vọng rất xa,ở đây số trung vị cho thấy chiếu cao của đối tượng này nằm chủ yếu  ở 69.15 inch,độ lệch chuẩn cho thấy các đối tượng có chênh lệch chiều cao o với chiều cao trung bình khoảng hơn 3 inch. \\
+		- Thuộc tính thứ 4 - Bass: 
+\begin{verbatim}
+>  min(Bass)
+[1] 66
+> max(Bass)
+[1] 75
+> mean(Bass)
+[1] 70.4
+> median(Bass)
+[1] 70.5
+> var(Bass)
+[1] 5.305263
+> sd(Bass)
+[1] 2.303316
+\end{verbatim}
+	Nhận xét: Qua số liệu được phân tích ở trên ta thấy: chiều cao thấp nhất của đối tượng alto là 66 inch, chiều cao cao nhất là 75 inch,phương sai của Bass  mức trung bình (5.3) cho thấy khoảng cách để đạt đến chiều cao kì vong,ở đây số trung vị cho thấy chiếu cao của đối tượng này nằm chủ yếu  ở 70.4 inch,độ lệch chuẩn cho thấy các đối tượng có chênh lệch chiều cao so với chiều cao trung bình khoảng hơn 2 inch.\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Kết luận}
+	Trong báo cáo này chúng tôi đã trình bày về R với định nghĩa, ứng dụng về R. Sử dụng các hàm của R để thực hiện việc thống kê mô tả tập dữ liệu là phân tích chiều cao của nam và nữ trong dàn hợp xướng New York vào năm 1979.
+Qua đó đã làm rõ được các thông số về chiều cao min, max, phương sai, độ lệch chuẩn... Và cũng đã chỉ ra được ý nghĩa tầm quan trọng của ngôn ngữ R va ứng dụng của nó để phân tích dữ liệu.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thebibliography}{80}
+
+
+\bibitem{ Nguyễn Văn Tuấn:2012}
+Giáo sư Nguyễn Văn Tuấn
+``\textbf{<http://www.nguyenvantuan.net/>}'', 
+\textit{xem ngày :} 24-29/05/2012.
+
+
+\bibitem{http://wikipedia:2012}
+wikipedia.
+``\textbf{link: http://vi.wikipedia.org/}'',
+\textit{phương sai,đọ lệch chuẩn, số trung vị}, lần truy cập cuối: 29/05/2012.
+
+
+\end{thebibliography}
+\end{document}
+
+
